@@ -1,5 +1,6 @@
 automate
 client
+clientF
 *.zargo~
 automate.png
 .nit_compile
