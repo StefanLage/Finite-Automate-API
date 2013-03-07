@@ -1,0 +1,7 @@
+automate
+client
+*.zargo~
+automate.png
+.nit_compile
+doc/*
+*.swp
