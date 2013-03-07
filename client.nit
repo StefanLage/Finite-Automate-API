@@ -56,7 +56,7 @@ end
 
 fun askCommand
 do
-	print "Enter a command"
+	print "Enter a command : <view>, <treat>, <auto1>, <auto2>, <exit>"
 	cmd = stdin.read_line
 
 	if cmd == " " then 
