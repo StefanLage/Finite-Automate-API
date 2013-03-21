@@ -38,12 +38,12 @@ class FSStatesList[E: FSState]
 	
 	redef fun add(e: E)
 	do
-	
+		super
 	end
 
 	redef fun has(e: E):Bool
 	do
-		return false
+		return super
 	end
 end 
 
@@ -86,6 +86,22 @@ class FSAlphabet[E: FSValueAlphabet]
 	redef fun has(e: E):Bool
 	do
 		return false
+	end
+end
+
+
+# Others
+class FSTransitionTable[E: FSState, F: FSTransitionsList[FSTransition]]
+	super FSHashMap[E, F]
+
+	fun addTransitionToState(s: FSState, t: FSTransition)
+	do
+		if not self.has_key(s) then
+			self[s] = new FSTransitionsList[FSTransition]
+			self[s].add(t)
+		else
+			self[s].add(t)
+		end
 	end
 end
 
