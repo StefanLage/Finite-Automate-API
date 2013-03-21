@@ -23,9 +23,36 @@ class FSAutomate
 		automateEngine = new FSAutomateEngine(alphabet, automateSize, transitions, initial, accepting)
 	end
 
-	fun travel
+	fun travel(s: String):Bool
 	do
+		if automateEngine == null then return false
 
+		var initialSt: FSState = automateEngine.initial
+		var correctTravel: Bool = true
+		var endTravel: Bool = false
+		for i in [0..s.length]
+		do
+			if correctTravel == false then break
+
+			for v in automateEngine.transitionsTable[initialSt]
+			do
+				correctTravel = false
+				if v.value == s[i] then 
+					correctTravel = true
+					initialSt = v.to
+
+					if acceptingList.has(initialSt) then 
+						correctTravel = false
+						endTravel = true
+					end
+					break
+				end
+			end
+
+			if endTravel then break
+		end
+
+		return correctTravel
 	end
 
 	fun mergeWithAutomate(a: FSAutomate)
