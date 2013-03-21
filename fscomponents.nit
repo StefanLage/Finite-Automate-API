@@ -5,10 +5,12 @@ abstract class FSObject
 	super Object
 end
 
-abstract class FSArray[T: FSObject]
-	super Array[T]
-	redef fun add(e: T) do end
-	redef fun has(e: T):Bool do return false end
+abstract class FSArray[E: FSObject]
+	super Array[E]
+	redef fun add(e: E) do end
+	redef fun has(e: E):Bool do return false end
 end
 
-
+abstract class FSHashMap[E: FSObject, F: FSArray[FSObject]]
+	super HashMap[E, F]
+end
