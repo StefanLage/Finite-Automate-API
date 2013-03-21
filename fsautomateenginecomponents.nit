@@ -38,12 +38,12 @@ class FSStatesList[E: FSState]
 	
 	redef fun add(e: E)
 	do
-	
+		super
 	end
 
 	redef fun has(e: E):Bool
 	do
-		return false
+		return super
 	end
 end 
 
