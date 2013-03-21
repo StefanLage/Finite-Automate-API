@@ -7,20 +7,26 @@ class FSAutomate
 
 	init with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int] )
 	do
-		if not alphabet.length > 0 then return once new FSCodeError.alphabet_length_error
-		if not accepting.length > 0 then return once new FSCodeError.accepting_length_error
+		var error: nullable FSCodeError=null
+		if not alphabet.length > 0 then error = new FSCodeError.alphabet_length_error
+		if not accepting.length > 0 then error = new FSCodeError.accepting_length_error
 
-		var equalASizeAndTransitions: Bool=true
-		for ar in transition
-		do
-			if not ar.length == automateSize then
-				equalASizeAndTransitions = false
-				break
+		if not error == null then
+			var equalASizeAndTransitions: Bool=true
+			for ar in transitions
+			do
+				if not ar.length == automateSize then
+					equalASizeAndTransitions = false
+					break
+				end
+			end
+			if not equalASizeAndTransitions then 
+				error = new FSCodeError.automatesize_transition_not_equal_error
+			else	
+				automateEngine = new FSAutomateEngine.with(alphabet, automateSize, transitions, initial, accepting)
+		
 			end
 		end
-		if not equalASizeAndTransitions then return once new FSCodeError.automatesize_transition_not_equal_error
-			
-		automateEngine = new FSAutomateEngine(alphabet, automateSize, transitions, initial, accepting)
 	end
 
 	fun travel(s: String):Bool
@@ -41,7 +47,7 @@ class FSAutomate
 					correctTravel = true
 					initialSt = v.to
 
-					if acceptingList.has(initialSt) then 
+					if automateEngine.acceptingList.has(initialSt) then 
 						correctTravel = false
 						endTravel = true
 					end
