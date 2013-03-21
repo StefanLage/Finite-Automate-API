@@ -57,9 +57,18 @@ class FSAutomateEngine
 	fun constructTransitionsTable(transitions: Array[Array[String]]): Bool
 	do
 		self.transitionsTable = new FSTransitionsTable[FSState, FSTransitionsList[FSTransition]]
+		var indexState = 0
 		for i in [0..transitions.length] 
 		do 
-			for state in transitions[i] do self.transitionsTable.addTransitionToState([self.statesList.stateAtIndex(state.to_i)], self.alphabet[i])
+			for state in transitions[i] do 
+				if not state == "#" then 
+					var fsstate = self.statesList.stateAtIndex(state.to_i)
+					var fstransition = new FSTransition.with(fsstate, self.alphabet[i])
+					self.transitionsTable.addTransitionToState(self.statesList[indexState], fstransition)
+			
+				end
+			end
+			indexState+=1
 		end
 		if self.transitionsTable.length == transitions.length then
 			return true
