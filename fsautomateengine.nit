@@ -11,7 +11,7 @@ class FSAutomateEngine
 	var acceptingList: FSAcceptingStatesList[FSState]
 	var initial: FSState
 
-	with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int])
+	init with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int])
 	do
 		if constructAlphabet(alphabet) then
 			if construcStatesList(automateSize) then
