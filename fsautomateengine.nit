@@ -11,29 +11,33 @@ class FSAutomateEngine
 	var acceptingList: FSAcceptingStatesList[FSState]
 	var initial: FSState
 
-	with(alphabet: String, automateSize: Int, transitions: Array[Array[Object]], initial: Int, accepting: Array[Object])
+	with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int])
 	do
 	end
 
-	fun constructAlphabet(alphabet: String)
+	fun constructAlphabet(clalphabet: String): Bool
 	do
 		alphabet = new FSAlphabet[FSValueAlphabet]
-		for i in alphabet
+		for i in clalphabet
 		do	
 			alphabet.add(new FSValueAlphabet.with(i))
 		end
+		if alphabet.length == clalphabet then
+			return true
+		else
+			return false
 	end
 
-	fun constructStatesList 
+	fun constructStatesList(): Bool
 	do
-
+		
 	end
 
-	fun constructTransitionTable
+	fun constructTransitionTable(): Bool
 	do
 	end
 
-	fun constructAccepting 
+	fun constructAccepting(): Bool
 	do
 	end
 
