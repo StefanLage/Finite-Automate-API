@@ -42,20 +42,14 @@ class FSAutomate
 			for v in automateEngine.transitionsTable[initialSt]
 			do
 				correctTravel = false
-				#print "v : {v.value.value} : i{s[i]} "
-				if v.value.value == s[i] then
-					print "ttt"
+				if v.value.value == s[i].to_s then
 					correctTravel = true
 					initialSt = v.to
 
-					if automateEngine.acceptingList.has(initialSt) then 
-						correctTravel = false
-						endTravel = true
-					end
+					if automateEngine.acceptingList.has(initialSt) then endTravel = true
 					break
 				end
 			end
-
 			if endTravel then break
 		end
 
