@@ -7,8 +7,8 @@ end
 
 abstract class FSArray[E: FSObject]
 	super Array[E]
-	redef fun add(e: E) do end
-	redef fun has(e: E):Bool do return false end
+	redef fun add(e: E) do super end
+	redef fun has(e: E):Bool do return super end
 end
 
 abstract class FSHashMap[E: FSObject, F: FSArray[FSObject]]

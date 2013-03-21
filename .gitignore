@@ -1,8 +1,6 @@
-automate
-client
-clientF
 *.zargo~
-automate.png
+*.png
 .nit_compile
 doc/*
+*~
 *.swp
