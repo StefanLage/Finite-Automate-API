@@ -50,7 +50,7 @@ end
 
 
 # Others
-class FSTransitionTable[E: FSState, F: FSTransitionsList[FSTransition]]
+class FSTransitionsTable[E: FSState, F: FSTransitionsList[FSTransition]]
 	super FSHashMap[E, F]
 
 	fun addTransitionToState(s: FSState, t: FSTransition)
