@@ -23,12 +23,9 @@ end
 class FSValueAlphabet
 	super FSObject
 
-	var value: nullable Object= null
+	var value: String
 
-	init with(e: Object)
-	do
-		if e isa String or e isa Int then value=e
-	end
+	init with(e: String) do value=e end
 end
 
 
