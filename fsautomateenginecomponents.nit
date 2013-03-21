@@ -36,57 +36,19 @@ end
 class FSStatesList[E: FSState]
 	super FSArray[E]
 	
-	redef fun add(e: E)
-	do
-		super
-	end
-
-	redef fun has(e: E):Bool
-	do
-		return super
-	end
+	fun stateAtIndex(i: Int):FSState do return self[i] end
 end 
 
 class FSAcceptingStatesList[E: FSState]
 	super FSArray[E]
-	
-	redef fun add(e: E)
-	do
-	
-	end
-
-	redef fun has(e: E):Bool
-	do
-		return false
-	end
 end 
 
 class FSTransitionsList[E: FSTransition]
 	super FSArray[E]
-	
-	redef fun add(e: E)
-	do
-	
-	end
-
-	redef fun has(e: E):Bool
-	do
-		return false
-	end
 end 
 
 class FSAlphabet[E: FSValueAlphabet]
 	super FSArray[E]
-
-	redef fun add(e: E)
-	do
-
-	end
-
-	redef fun has(e: E):Bool
-	do
-		return false
-	end
 end
 
 
