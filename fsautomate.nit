@@ -46,7 +46,11 @@ class FSAutomate
 					correctTravel = true
 					initialSt = v.to
 
-					if automateEngine.acceptingList.has(initialSt) then endTravel = true
+					if automateEngine.acceptingList.has(initialSt) then 
+						endTravel = true
+					else 
+						correctTravel = false
+					end
 					break
 				end
 			end
