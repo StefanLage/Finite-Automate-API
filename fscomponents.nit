@@ -7,6 +7,7 @@ end
 
 abstract class FSArray[E: FSObject]
 	super Array[E]
+	init do super end
 	redef fun add(e: E) do super end
 	redef fun has(e: E):Bool do return super end
 end
