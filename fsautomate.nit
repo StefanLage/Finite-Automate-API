@@ -10,11 +10,11 @@ class FSAutomate
 		var error: nullable FSCodeError=null
 		if not alphabet.length > 0 then error = new FSCodeError.alphabet_length_error
 		if not accepting.length > 0 then error = new FSCodeError.accepting_length_error
-
-		if not error == null then
+	
+		if error == null then
 			var equalASizeAndTransitions: Bool=true
 			for ar in transitions
-			do
+			do	
 				if not ar.length == automateSize then
 					equalASizeAndTransitions = false
 					break
@@ -24,7 +24,6 @@ class FSAutomate
 				error = new FSCodeError.automatesize_transition_not_equal_error
 			else	
 				automateEngine = new FSAutomateEngine.with(alphabet, automateSize, transitions, initial, accepting)
-		
 			end
 		end
 	end
@@ -43,7 +42,9 @@ class FSAutomate
 			for v in automateEngine.transitionsTable[initialSt]
 			do
 				correctTravel = false
-				if v.value == s[i] then 
+				#print "v : {v.value.value} : i{s[i]} "
+				if v.value.value == s[i] then
+					print "ttt"
 					correctTravel = true
 					initialSt = v.to
 
@@ -68,6 +69,30 @@ class FSAutomate
 
 	fun display
 	do
+		var f = new OFStream.open("automate.dot")
+		var digraph = "digraph finite_state_machine \{ rankdir=LR; size=\"12\";"
 
+		digraph += "node [shape = doublecircle]; "
+		for i in automateEngine.acceptingList do digraph += "{i} "
+
+		digraph += ";node [shape=box]; Start;"
+
+		digraph += "node[shape = circle];"
+		digraph += "Start -> {automateEngine.initial};"
+		
+		for state, value in automateEngine.transitionsTable
+		do
+			for i in value do
+				digraph += "{state} -> {i.to} [ label =\"{i.value.value}\"] ;"
+			end
+		end
+
+		digraph += "\}"
+
+		f.write(digraph)
+		f.close
+		sys.system("dot -Tpng -o automate.png automate.dot")
+		sys.system("open automate.png")
+		sys.system("rm automate.dot")
 	end
 end

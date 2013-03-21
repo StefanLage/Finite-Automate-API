@@ -19,16 +19,16 @@ class FSAutomateEngine
 					if constructAccepting(accepting) then
 						self.initial = self.statesList.stateAtIndex(initial)
 					else
-						print "error when constructin accepting states"
+						print "error accepting states"
 					end
 				else
-					print "error when constructing transitions list"
+					print "error transitions list"
 				end
 			else
-				print "error when constructing states list"
+				print "error states list"
 			end
 		else
-			print "error when construting alphabet"
+			print "error alphabet"
 		end
 	end
 
@@ -36,7 +36,7 @@ class FSAutomateEngine
 	do
 		self.alphabet = new FSAlphabet[FSValueAlphabet]
 		for i in clAlphabet do self.alphabet.add(new FSValueAlphabet.with(i.to_s))
-		if self.alphabet.length == clAlphabet then
+		if self.alphabet.length == clAlphabet.length then
 			return true
 		else
 			return false
@@ -46,7 +46,7 @@ class FSAutomateEngine
 	fun constructStatesList(automateSize: Int): Bool
 	do
 		self.statesList = new FSStatesList[FSState]
-		for i in [0..automateSize] do self.statesList.add(new FSState)
+		for i in [0..automateSize-1] do self.statesList.add(new FSState)
 		if self.statesList.length == automateSize then
 			return true
 		else
@@ -58,29 +58,30 @@ class FSAutomateEngine
 	do
 		self.transitionsTable = new FSTransitionsTable[FSState, FSTransitionsList[FSTransition]]
 		var indexState = 0
-		for i in [0..transitions.length] 
+		var trLen = transitions.length-1
+		for i in [0..trLen] 
 		do 
-			for state in transitions[i] do 
-				if not state == "#" then 
+			for state in transitions[i] do
+				if not state == "#" then
+					#print "ti {indexState}"
 					var fsstate = self.statesList.stateAtIndex(state.to_i)
 					var fstransition = new FSTransition.with(fsstate, self.alphabet[i])
 					self.transitionsTable.addTransitionToState(self.statesList[indexState], fstransition)
 			
 				end
+				indexState += 1
 			end
-			indexState+=1
+			indexState = 0
 		end
-		if self.transitionsTable.length == transitions.length then
-			return true
-		else
-			return false
-		end
+		return true
 	end
 
 	fun constructAccepting(accepting: Array[Int]): Bool
 	do
 		self.acceptingList = new FSAcceptingStatesList[FSState]
-		for i in accepting do self.acceptingList.add(self.statesList.stateAtIndex(i))
+		for i in accepting do 
+			self.acceptingList.add(self.statesList.stateAtIndex(i))
+		end
 		if self.acceptingList.length == accepting.length then
 			return true
 		else
