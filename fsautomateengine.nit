@@ -15,22 +15,32 @@ class FSAutomateEngine
 	do
 	end
 
-	fun constructAlphabet(clalphabet: String): Bool
+	fun constructAlphabet(clAlphabet: String): Bool
 	do
 		alphabet = new FSAlphabet[FSValueAlphabet]
-		for i in clalphabet
+		for i in clAlphabet
 		do	
 			alphabet.add(new FSValueAlphabet.with(i))
 		end
-		if alphabet.length == clalphabet then
+		if alphabet.length == clAlphabet then
 			return true
 		else
 			return false
+		end
 	end
 
-	fun constructStatesList(): Bool
+	fun constructStatesList(automateSize: Int): Bool
 	do
-		
+		statesList = new FSStatesList[FSState]
+		for i in [0..automateSize]
+		do
+			statesList.add(new FSState)
+		end
+		if statesList.length == automateSize then
+			return true
+		else
+			return false
+		end
 	end
 
 	fun constructTransitionTable(): Bool
