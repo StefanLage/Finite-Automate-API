@@ -22,6 +22,7 @@ class FSCodeError
 	init alphabet_length_error do print "[FSAutomate] Your alphabet length can not be equal to 0." end
 	init accepting_length_error do print "[FSAutomate] Your accepting array can not be empty, you need to provide one or more ending point." end
 	init automatesize_transition_not_equal_error do print "[FSAutomate] Your automate size must be equal to the number of state pointed in each transitions" end
+	init construct_alphabet do print "[FSAutomateEngine]" end
 end
 
 

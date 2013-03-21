@@ -14,7 +14,7 @@ class FSAutomateEngine
 	init with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int])
 	do
 		if constructAlphabet(alphabet) then
-			if construcStatesList(automateSize) then
+			if constructStatesList(automateSize) then
 				if constructTransitionsTable(transitions) then
 					if constructAccepting(accepting) then
 						self.initial = self.statesList.stateAtIndex(initial)
@@ -35,7 +35,7 @@ class FSAutomateEngine
 	fun constructAlphabet(clAlphabet: String): Bool
 	do
 		self.alphabet = new FSAlphabet[FSValueAlphabet]
-		for i in clAlphabet do self.alphabet.add(new FSValueAlphabet.with(i))
+		for i in clAlphabet do self.alphabet.add(new FSValueAlphabet.with(i.to_s))
 		if self.alphabet.length == clAlphabet then
 			return true
 		else
@@ -59,7 +59,7 @@ class FSAutomateEngine
 		self.transitionsTable = new FSTransitionsTable[FSState, FSTransitionsList[FSTransition]]
 		for i in [0..transitions.length] 
 		do 
-			for state in transitions[i] do self.transitionsTable[self.statesList.stateAtIndex(state.to_i)] = self.alphabet[i]
+			for state in transitions[i] do self.transitionsTable.addTransitionToState([self.statesList.stateAtIndex(state.to_i)], self.alphabet[i])
 		end
 		if self.transitionsTable.length == transitions.length then
 			return true
