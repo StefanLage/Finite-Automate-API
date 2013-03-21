@@ -13,16 +13,25 @@ class FSAutomateEngine
 
 	with(alphabet: String, automateSize: Int, transitions: Array[Array[String]], initial: Int, accepting: Array[Int])
 	do
+		if constructAlphabet(alphabet) then
+			if construcStatesList(automateSize) then
+				constructTransitionTable(transitions)
+			else
+				print "error when constructing states list"
+			end
+		else
+			print "error when construting alphabet"
+		end
 	end
 
 	fun constructAlphabet(clAlphabet: String): Bool
 	do
-		alphabet = new FSAlphabet[FSValueAlphabet]
+		self.alphabet = new FSAlphabet[FSValueAlphabet]
 		for i in clAlphabet
 		do	
-			alphabet.add(new FSValueAlphabet.with(i))
+			self.alphabet.add(new FSValueAlphabet.with(i))
 		end
-		if alphabet.length == clAlphabet then
+		if self.alphabet.length == clAlphabet then
 			return true
 		else
 			return false
@@ -31,20 +40,33 @@ class FSAutomateEngine
 
 	fun constructStatesList(automateSize: Int): Bool
 	do
-		statesList = new FSStatesList[FSState]
+		self.statesList = new FSStatesList[FSState]
 		for i in [0..automateSize]
 		do
-			statesList.add(new FSState)
+			self.statesList.add(new FSState)
 		end
-		if statesList.length == automateSize then
+		if self.statesList.length == automateSize then
 			return true
 		else
 			return false
 		end
 	end
 
-	fun constructTransitionTable(): Bool
+	fun constructTransitionTable(transition: Array[Array[String]]): Bool
 	do
+		self.transitionTable = new FSTransitionTable[FSState, FSTransitionsList[FSTransition]]
+		for i in [0..transition.length]
+		do
+			for state in transition[i]
+			do
+				self.transitionTable[statesList.stateAtIndex(state.to_i)] = self.alphabet[i]
+			end
+		end
+		if self.transitionTable.length == transition.length then
+			return true
+		else
+			return false
+		end
 	end
 
 	fun constructAccepting(): Bool
