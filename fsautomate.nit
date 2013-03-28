@@ -35,7 +35,7 @@ class FSAutomate
 		var initialSt: FSState = automateEngine.initial
 		var correctTravel: Bool = true
 		var endTravel: Bool = false
-		for i in [0..s.length]
+		for i in [0..s.length-1]
 		do
 			if correctTravel == false then break
 
@@ -45,16 +45,18 @@ class FSAutomate
 				if v.value.value == s[i].to_s then
 					correctTravel = true
 					initialSt = v.to
-
+					
 					if automateEngine.acceptingList.has(initialSt) then 
 						endTravel = true
 					else 
-						correctTravel = false
+						endTravel = false
 					end
 					break
+				else
+					correctTravel = false
+					endTravel = false
 				end
 			end
-			if endTravel then break
 		end
 
 		return correctTravel
